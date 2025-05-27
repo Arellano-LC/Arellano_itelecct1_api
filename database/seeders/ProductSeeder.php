@@ -11,7 +11,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         // Retrieve users by username to get actual IDs
-        $user1 = Userinfo::where('username', 'admiral')->first();
+        $user1 = Userinfo::where('username', 'testuser')->first();
         $user2 = Userinfo::where('username', 'admin')->first();
 
         // Make sure users exist, otherwise throw an error or handle gracefully
@@ -54,15 +54,16 @@ class ProductSeeder extends Seeder
             ['SteelSeries Apex Pro', 'Mechanical gaming keyboard with adjustable actuation switches.', 6],
         ];
 
-        foreach ($products as $index => [$name, $description, $categoryId]) {
+    foreach ($products as $index => [$name, $description, $categoryId]) {
             Product::create([
                 'name' => $name,
                 'description' => $description,
                 'category_id' => $categoryId,
-                'user_id' => $index % 2 === 0 ? $user1->id : $user2->id,  // dynamic user IDs
-                'price' => rand(300, 2000) * 1.00,
+                'user_id' => $index % 2 === 0 ? 1 : 2,
+                'price' => rand(5000, 30000),
                 'image_path' => null,
             ]);
         }
     }
 }
+

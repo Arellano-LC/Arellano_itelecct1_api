@@ -1,11 +1,19 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Userinfo extends Authenticatable
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
+class Userinfo extends Model
 {
-    protected $table = 'usersinfo'; // important if your table name is not "users"
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = 'usersinfo';
 
     protected $fillable = [
         'username',
@@ -15,11 +23,12 @@ class Userinfo extends Authenticatable
 
     protected $hidden = [
         'password',
+        'remember_token',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
 }
-// This model represents the usersinfo table in the database.
-// It extends the Authenticatable class to provide authentication features.
-// The $fillable property specifies which attributes can be mass assigned.
-// The $hidden property specifies which attributes should be hidden when the model is converted to an array or JSON.
-// This is useful for hiding sensitive information like passwords.
-// The model can be used to interact with the usersinfo table, such as creating, updating, and retrieving user records.         

@@ -2,22 +2,28 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    /**
+     * Seed the application's database.
+     */
     public function run(): void
     {
-        // Remove this if you don't need Laravel default users table seeding
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // User::factory(10)->create();
+
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
 
         $this->call([
-            UsersinfoSeeder::class,  // usersinfo first
-            CategorySeeder::class,   // categories next
-            ProductSeeder::class,    // products last
+            CategorySeeder::class,
+            ProductSeeder::class,
+            UsersinfoSeeder::class,
         ]);
     }
 }
